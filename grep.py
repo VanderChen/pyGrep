@@ -17,7 +17,7 @@ def excutefilelist(expression,inputfile):
 def excutefilepath(expression,filepath):
     for root, dirs, files in os.walk(filepath):
         for file in files:
-            fp = open(file, 'r')
+            fp = open(os.path.join(root,file), 'r')
             alllines = fp.readlines()
             fp.close()
             for line in alllines:
