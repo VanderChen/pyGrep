@@ -6,28 +6,34 @@ import os
 def excutefilelist(expression,inputfile):
 
     for file in inputfile:
-        fp = open(file, 'r')
-        alllines = fp.readlines()
-        fp.close()
-        line_num = 0
-        for line in alllines:
-            line_num = line_num + 1
-            result = re.findall(expression,line)
-            if len(result) > 0:
-                print(line,'in',file,"line",line_num)
+        with open(file, 'r') as fp:
+            try:
+                alllines = fp.readlines()
+                fp.close()
+                line_num = 0
+                for line in alllines:
+                    line_num = line_num + 1
+                    result = re.findall(expression,line)
+                    if len(result) > 0:
+                        print(line,'in',file,"line",line_num)
+            except Exception as _:
+                continue
 
 def excutefilepath(expression,filepath):
     for root, _, files in os.walk(filepath):
         for file in files:
-            fp = open(os.path.join(root,file), 'r')
-            alllines = fp.readlines()
-            fp.close()
-            line_num = 0
-            for line in alllines:
-                line_num = line_num + 1
-                result = re.findall(expression,line)
-                if len(result) > 0:
-                    print(line,'in',file,"line",line_num)
+            with open(os.path.join(root,file), 'r') as fp:
+                try:
+                    alllines = fp.readlines()
+                    fp.close()
+                    line_num = 0
+                    for line in alllines:
+                        line_num = line_num + 1
+                        result = re.findall(expression,line)
+                        if len(result) > 0:
+                            print(line,'in',file,"line",line_num)
+                except Exception as _:
+                    continue
 
 def main(argv):
 
